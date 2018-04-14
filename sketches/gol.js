@@ -1,15 +1,18 @@
 var grid;
+var cell;
 
 function setup () {
   createCanvas(400, 400);
   grid = new Grid(20);
+  cell = new Cell(20);
 }
 
 function draw () {
   background(250);
 
-   grid.draw();
 
+   grid.draw();
+   cell.draw();
 
 }
 
@@ -21,8 +24,15 @@ class Cell {
     this.size = size;
     this.isAlive = false;
   }
-}
 
+  draw(){
+    print("Hello World");
+    fill(240);
+    noStroke();
+    rect(this.column * this.cellSize + 1, this.row * this.cellSize + 1, this.cellSize - 1, this.cellSize - 1);
+  }
+
+}
 class Grid {
   constructor (cellSize) {
 
@@ -53,15 +63,19 @@ class Grid {
       }
     }
     /* indicates the cells in the console */
-    print (this.cells);
+
+    print(this.cells);
+
 }
 
   draw () {
+
     for (var column = 0; column < this.numberOfColumns; column++) {
       for (var row = 0; row < this.numberOfRows; row++) {
-        fill(240);
-        noStroke();
-        rect(column * this.cellSize + 1, row * this.cellSize + 1, this.cellSize - 1, this.cellSize - 1);
+      
+        // fill(240);
+        // noStroke();
+        // rect(column * this.cellSize + 1, row * this.cellSize + 1, this.cellSize - 1, this.cellSize - 1);
       }
     }
   }
