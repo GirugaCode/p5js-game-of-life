@@ -4,7 +4,6 @@ var cell;
 function setup () {
   createCanvas(400, 400);
   grid = new Grid(20);
-  cell = new Cell(20);
 }
 
 function draw () {
@@ -12,7 +11,7 @@ function draw () {
 
 
    grid.draw();
-   cell.draw();
+
 
 }
 
@@ -22,14 +21,21 @@ class Cell {
     this.column = column;
     this.row = row;
     this.size = size;
-    this.isAlive = false;
+    this.isAlive = true;
   }
 
-  draw(){
-    print("Hello World");
-    fill(240);
+  draw() {
+
+
+    if (this.isAlive == false) {
+      fill(240);
+    }
+    else {
+      fill(200,0,200);
+    }
+    // fill(240);
     noStroke();
-    rect(this.column * this.cellSize + 1, this.row * this.cellSize + 1, this.cellSize - 1, this.cellSize - 1);
+    rect(this.column * this.size + 1, this.row * this.size + 1, this.size - 1, this.size - 1);
   }
 
 }
@@ -58,9 +64,9 @@ class Grid {
     }
 
     for (var column = 0; column < this.numberOfColumns; column ++) {
-    for (var row = 0; row < this.numberOfRows; row++) {
-      this.cells[column][row] = new Cell(column, row, cellSize)
-      }
+      for (var row = 0; row < this.numberOfRows; row++) {
+        this.cells[column][row] = new Cell(column, row, cellSize);
+        }
     }
     /* indicates the cells in the console */
 
@@ -72,10 +78,8 @@ class Grid {
 
     for (var column = 0; column < this.numberOfColumns; column++) {
       for (var row = 0; row < this.numberOfRows; row++) {
-      
-        // fill(240);
-        // noStroke();
-        // rect(column * this.cellSize + 1, row * this.cellSize + 1, this.cellSize - 1, this.cellSize - 1);
+        var cell = this.cells[column][row];
+        cell.draw();
       }
     }
   }
