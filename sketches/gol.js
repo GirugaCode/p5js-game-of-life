@@ -1,9 +1,9 @@
 var grid;
-var cell;
 
 function setup () {
   createCanvas(400, 400);
   grid = new Grid(20);
+  grid.randomize();
 }
 
 function draw () {
@@ -17,27 +17,33 @@ function draw () {
 
 
 class Cell {
-  constructor (column, row, size) {
+  constructor (column, row, size, value) {
     this.column = column;
     this.row = row;
     this.size = size;
-    this.isAlive = true;
+    this.isAlive = false;
+
   }
 
   draw() {
-
-
     if (this.isAlive == false) {
       fill(240);
-    }
-    else {
+    } else {
       fill(200,0,200);
     }
-    // fill(240);
     noStroke();
     rect(this.column * this.size + 1, this.row * this.size + 1, this.size - 1, this.size - 1);
   }
 
+  setIsAlive (value) {
+
+    if (value == true) {
+        this.isAlive = true;
+    }
+    else if (value == false){
+        this.isAlive = false;
+    }
+  }
 }
 class Grid {
   constructor (cellSize) {
@@ -48,6 +54,8 @@ class Grid {
     this.numberOfColumns = width / cellSize;
     /* calculates the height of the columns while keeping the constant resolution of the cell size */
     this.numberOfRows =  height / cellSize;
+
+
 
 
 
@@ -69,10 +77,8 @@ class Grid {
         }
     }
     /* indicates the cells in the console */
-
     print(this.cells);
-
-}
+  }
 
   draw () {
 
@@ -83,4 +89,36 @@ class Grid {
       }
     }
   }
+
+  randomize(){
+
+    for (var column = 0; column < this.numberOfColumns; column++) {
+      for (var row = 0; row < this.numberOfRows; row++) {
+        var cell = this.cells[column][row];
+        cell.setIsAlive(floor(random(2)));
+      }
+    }
+  }
 }
+
+
+
+
+
+// // nested ifs
+// if (alive){
+//
+//   // check if 2 neighbors
+// }
+// else {
+//
+//   // check if 3 neighbors
+//   if
+// }
+//
+// //complex ifs
+//
+// if (alive && count) {
+//
+//
+// } else if (alive && count...)
