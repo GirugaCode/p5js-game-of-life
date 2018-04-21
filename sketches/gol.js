@@ -17,7 +17,9 @@ function draw () {
 
 
 class Cell {
-  constructor (column, row, size, value) {
+  constructor (column, row, size) {
+    var liveNeighborCount = 0;
+    this.liveNeighborCount = liveNeighborCount;
     this.column = column;
     this.row = row;
     this.size = size;
@@ -78,6 +80,12 @@ class Grid {
     }
     /* indicates the cells in the console */
     print(this.cells);
+  }
+
+  updateNeighborCounts () {
+  // for each cell in the grid
+  // reset it's neighbor count to 0
+  // for each of the cell's neighbors, if it is alive add 1 to neighborCount
   }
 
   draw () {
