@@ -8,23 +8,20 @@ function setup () {
 
 function draw () {
   background(250);
-
-
    grid.draw();
+   grid.updateNeighborCounts();
 
 
 }
 
 
 class Cell {
-  constructor (column, row, size) {
-    var liveNeighborCount = 0;
-    this.liveNeighborCount = liveNeighborCount;
+  constructor (column, row, size, liveNeighborCount) {
     this.column = column;
     this.row = row;
     this.size = size;
     this.isAlive = false;
-
+    this.liveNeighborCount = this.liveNeighborCount;
   }
 
   draw() {
@@ -57,10 +54,6 @@ class Grid {
     /* calculates the height of the columns while keeping the constant resolution of the cell size */
     this.numberOfRows =  height / cellSize;
 
-
-
-
-
     /* how big the first array should be */
     var x = this.numberOfColumns;
     /* how big each array inside of the first array should be */
@@ -86,7 +79,31 @@ class Grid {
   // for each cell in the grid
   // reset it's neighbor count to 0
   // for each of the cell's neighbors, if it is alive add 1 to neighborCount
+  for (var column = 0; column < this.numberOfColumns; column++) {
+    for (var row = 0; row < this.numberOfRows; row++) {
+      var currentCell = this.cells[column][row];
+      currentCell.liveNeighborCount = 0;
+      for (var xOffset = -1; xOffset <= 1; xOffset++) {
+        var neighborX = currentCell.column + xOffset;
+        if (neighborX < 0 || neighborX > this.numberOfColumns - 1){
+          //
+        } else {
+          for (var yOffset = -1; yOffset <= 1; yOffset++) {
+              var neighborY = currentCell.row + yOffset
+              if (neighborY < 0 || neighborY > this.numberOfRows - 1){
+              //
+            } else {
+              if (this.cells[neighborX][neighborY].isAlive == true && this.cells[neighborX][neighborY]!== currentCell) {
+                currentCell.liveNeighborCount++;
+
+              }
+            }
+          }
+        }
+      }
+    }
   }
+}
 
   draw () {
 
