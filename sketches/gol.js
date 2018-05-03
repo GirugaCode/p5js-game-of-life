@@ -1,4 +1,5 @@
 var grid;
+var gameNotPaused;
 
 function setup () {
   createCanvas(400, 400);
@@ -12,7 +13,23 @@ function draw () {
    grid.updateNeighborCounts();
    grid.updatePopulation();
 
+   if (gameNotPaused) {
+     grid.updateNeighborCounts();
+     grid.updatePopulation();
+   }
+}
 
+function keyPressed() {
+  if (keyCode === ENTER ) {
+  gameNotPaused = !gameNotPaused;
+  print(gameNotPaused);
+  }
+}
+
+function keyPressed (){
+  if (keyCode === BACKSPACE ) {
+    grid.randomize();
+  }
 }
 
 
@@ -91,7 +108,7 @@ class Grid {
   }
 
   updateNeighborCounts () {
-    
+
   for (var column = 0; column < this.numberOfColumns; column++) {
     for (var row = 0; row < this.numberOfRows; row++) {
       var currentCell = this.cells[column][row];
