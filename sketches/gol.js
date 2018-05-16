@@ -1,5 +1,5 @@
 var grid;
-var gameNotPaused;
+var gameNotPaused = true;
 
 function setup () {
   createCanvas(400, 400);
@@ -10,8 +10,8 @@ function setup () {
 function draw () {
   background(250);
    grid.draw();
-   grid.updateNeighborCounts();
-   grid.updatePopulation();
+   // grid.updateNeighborCounts();
+   // grid.updatePopulation();
 
    if (gameNotPaused) {
      grid.updateNeighborCounts();
@@ -20,17 +20,17 @@ function draw () {
 }
 
 function keyPressed() {
+
   if (keyCode === ENTER ) {
   gameNotPaused = !gameNotPaused;
   print(gameNotPaused);
   }
-}
-
-function keyPressed (){
   if (keyCode === BACKSPACE ) {
     grid.randomize();
   }
 }
+
+
 
 
 class Cell {
